@@ -10,6 +10,8 @@
     let assetManifest = [
         { id: "startButton", src: "./Assets/Images/startButton.png" },
         { id: "restartButton", src: "./Assets/Images/startButton.png" },
+        { id: "block1", src: "./Assets/Images/BuildBlock1.png" },
+        { id: "building2", src: "./Assets/Images/Building2.png" },
         { id: "plane", src: "./Assets/Images/plane.png" },
         { id: "cloud", src: "./Assets/Images/cloud.png" },
         { id: "island", src: "./Assets/Images/island.png" },
@@ -68,6 +70,7 @@
                 currentScene = new scenes.Over();
                 break;
         }
+        managers.Game.currentScene = currentScene;
         stage.addChild(currentScene);
     }
     window.addEventListener("load", Init);
