@@ -47,13 +47,12 @@ module objects {
         }
 
         public Scroll(distance:number):void {
-            this.x -= distance;
-            // if(this._active) {
-            //     this.x -= distance;
-            //     if(this.x < - this.getBounds().width) {
-            //         this._active = false;
-            //     }
-            // }
+            if(this._active) {
+                this.x -= distance;
+                if(this.x < - this.getBounds().width) {
+                    this._active = false;
+                }
+            }
         }
 
         public IsActive():boolean {

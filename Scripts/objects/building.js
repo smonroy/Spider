@@ -33,13 +33,12 @@ var objects;
         Destroy() {
         }
         Scroll(distance) {
-            this.x -= distance;
-            // if(this._active) {
-            //     this.x -= distance;
-            //     if(this.x < - this.getBounds().width) {
-            //         this._active = false;
-            //     }
-            // }
+            if (this._active) {
+                this.x -= distance;
+                if (this.x < -this.getBounds().width) {
+                    this._active = false;
+                }
+            }
         }
         IsActive() {
             return this._active;

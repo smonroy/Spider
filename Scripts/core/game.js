@@ -12,6 +12,7 @@
         { id: "restartButton", src: "./Assets/Images/startButton.png" },
         { id: "building2", src: "./Assets/Images/Building2.png" },
         { id: "spider", src: "./Assets/Images/Spider1.png" },
+        { id: "webLine", src: "./Assets/Images/WebLine.png" },
         { id: "plane", src: "./Assets/Images/plane.png" },
         { id: "cloud", src: "./Assets/Images/cloud.png" },
         { id: "island", src: "./Assets/Images/island.png" },
@@ -41,6 +42,12 @@
         createjs.Ticker.on("tick", Update);
         currentState = config.Scene.START;
         managers.Game.currentState = currentState;
+        document.addEventListener("keydown", (event) => {
+            managers.Input.HandleInput(event);
+        });
+        document.addEventListener("keyup", (event) => {
+            managers.Input.HandleUpInput(event);
+        });
         scoreBoard = new managers.ScoreBoard();
         managers.Game.scoreboard = scoreBoard;
         Main();

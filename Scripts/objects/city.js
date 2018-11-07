@@ -6,6 +6,7 @@ var objects;
             this._distanceMax = 300;
             this._leftBorderPosition = 0;
             this._rightBorder = 0;
+            this._numBuldings = 10;
             this._scene = scene;
             this.buildings = new Array();
             this.GetNewBuldings();
@@ -18,7 +19,7 @@ var objects;
             this.GetNewBuldings();
         }
         GetNewBuldings() {
-            while (this._rightBorder + this._leftBorderPosition < managers.SCREEN_WITH) {
+            while (this._rightBorder + this._leftBorderPosition < managers.SCREEN_WITH || this.buildings.length < this._numBuldings) {
                 this._rightBorder += this._distanceMin + Math.floor(Math.random() * (this._distanceMax - this._distanceMin));
                 let floors = Math.floor((Math.random() * 3) + 10);
                 let position = this._rightBorder + this._leftBorderPosition;

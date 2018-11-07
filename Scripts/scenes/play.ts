@@ -17,6 +17,10 @@ module scenes {
         };
 
         public Update():void {
+            if(!this._spider.IsAnchor()) {
+                this._spider.SetAnchor(new util.Vector2(100, 0));
+            }
+
             this._spider.Update();
             let diff = Math.floor(this._spider.x - managers.SCROLL_TRIGER);
             if(diff > 0) {
@@ -46,9 +50,10 @@ module scenes {
         public Main():void {
 
             this._city = new objects.City(this);
-            this._spider = new objects.Spider();
+            this._spider = new objects.Spider(100, 100);
             managers.Game.player = this._spider;
             this.addChild(this._spider);
+
 
             // this._engineSound = createjs.Sound.play("engineSound");
             // this._engineSound.volume = 0.1;
@@ -57,8 +62,8 @@ module scenes {
             managers.Game.scoreboard.AddGameUI(this);
         };
 
-        public ShootWeb(x: number, y:number):void {
-            console.log(x + ", " + y);
-        }
+        // public ShootWeb(x: number, y:number):void {
+        //     console.log(x + ", " + y);
+        // }
     }
 }

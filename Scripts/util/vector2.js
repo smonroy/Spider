@@ -21,6 +21,9 @@ var util;
         static Distance(vec1, vec2) {
             return Math.sqrt(Math.pow(vec1.x - vec2.x, 2) + Math.pow(vec1.y - vec2.y, 2));
         }
+        static Normilize(vec) {
+            return util.Vector2.Divide(vec, util.Vector2.Distance(util.Vector2.zero(), vec));
+        }
         /**
          *
          *

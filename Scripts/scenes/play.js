@@ -11,6 +11,9 @@ var scenes;
         }
         ;
         Update() {
+            if (!this._spider.IsAnchor()) {
+                this._spider.SetAnchor(new util.Vector2(100, 0));
+            }
             this._spider.Update();
             let diff = Math.floor(this._spider.x - managers.SCROLL_TRIGER);
             if (diff > 0) {
@@ -34,7 +37,7 @@ var scenes;
         ;
         Main() {
             this._city = new objects.City(this);
-            this._spider = new objects.Spider();
+            this._spider = new objects.Spider(100, 100);
             managers.Game.player = this._spider;
             this.addChild(this._spider);
             // this._engineSound = createjs.Sound.play("engineSound");
@@ -43,9 +46,6 @@ var scenes;
             managers.Game.scoreboard.AddGameUI(this);
         }
         ;
-        ShootWeb(x, y) {
-            console.log(x + ", " + y);
-        }
     }
     scenes.Play = Play;
 })(scenes || (scenes = {}));

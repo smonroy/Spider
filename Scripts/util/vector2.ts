@@ -24,6 +24,10 @@ module util {
             return Math.sqrt(Math.pow(vec1.x - vec2.x,2) + Math.pow(vec1.y - vec2.y,2));
         }
 
+        public static Normilize(vec:util.Vector2 ):util.Vector2 {
+            return util.Vector2.Divide(vec, util.Vector2.Distance(util.Vector2.zero(), vec)); 
+        }
+
         /**
          *
          *

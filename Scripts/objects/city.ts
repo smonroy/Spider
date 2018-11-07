@@ -6,12 +6,14 @@ module objects {
         private _leftBorderPosition:number;
         private _rightBorder:number;
         private _scene:objects.Scene;
+        private _numBuldings:number;
 
         constructor(scene:objects.Scene) {
             this._distanceMin = 400;
             this._distanceMax = 300;
             this._leftBorderPosition = 0;
             this._rightBorder = 0;
+            this._numBuldings = 10;
             this._scene = scene;
             this.buildings = new Array<objects.Building>();
             this.GetNewBuldings();
@@ -26,11 +28,11 @@ module objects {
         }
 
         GetNewBuldings():void {
-            while (this._rightBorder + this._leftBorderPosition < managers.SCREEN_WITH) {
+            while (this._rightBorder + this._leftBorderPosition < managers.SCREEN_WITH || this.buildings.length < this._numBuldings) {
                 this._rightBorder += this._distanceMin + Math.floor(Math.random() * (this._distanceMax - this._distanceMin));
                 let floors:number = Math.floor((Math.random() * 3) + 10);
                 let position:number = this._rightBorder + this._leftBorderPosition;
-                let found:boolean = false
+                let found:boolean = false;
                 for(let i:number = 0; i < this.buildings.length; i++) {
                     if(!this.buildings[i].IsActive()) {
                         this.buildings[i].Reset(floors, position);
