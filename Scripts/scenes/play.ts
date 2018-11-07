@@ -1,25 +1,13 @@
 module scenes {
     export class Play extends objects.Scene{
 
-        // private _player:objects.Player;
-        // private _ocean:objects.Player;
         private _city:objects.City;
         private _building:objects.Building;
-        // private _island:objects.Island;
-
-        // private _clouds:objects.Clound[];
-        // private _cloudNum:number;
+        private _spider:objects.Spider;
         // private _engineSound:createjs.AbstractSoundInstance;
 
         constructor() {
             super();
-
-            // this._cloudNum = 3;
-            // this._clouds = new Array<objects.Clound>();
-
-            // for (let i = 0; i < this._cloudNum; i++) {
-            //     this._clouds[i] = new objects.Clound();
-            // }
 
             this.Start();
         }
@@ -29,10 +17,13 @@ module scenes {
         };
 
         public Update():void {
-            this._city.Update();
-            // this._ocean.Update();
-            // this._player.Update();
-            // this._island.Update();
+            this._spider.Update();
+            let diff = Math.floor(this._spider.x - managers.SCROLL_TRIGER);
+            if(diff > 0) {
+                this._city.Scroll(diff);
+                this._spider.Scroll(diff);
+            }
+
 
             // managers.Collision.Check(this._player, this._island);
 
@@ -53,23 +44,11 @@ module scenes {
         };
 
         public Main():void {
-            // this._ocean = new objects.Ocean();
-            // this.addChild(this._ocean);
-    
-            // this._island = new objects.Island();
-            // this.addChild(this._island);
-    
-            // this._player = new objects.Player();
-            // this.addChild(this._player);   
-
-            // for (let cloud of this._clouds) {
-            //     this.addChild(cloud); 
-            // }  
-
-            // this._building = new objects.Building(10, 300);
-            // this.addChild(this._building);
 
             this._city = new objects.City(this);
+            this._spider = new objects.Spider();
+            managers.Game.player = this._spider;
+            this.addChild(this._spider);
 
             // this._engineSound = createjs.Sound.play("engineSound");
             // this._engineSound.volume = 0.1;
@@ -77,5 +56,9 @@ module scenes {
 
             managers.Game.scoreboard.AddGameUI(this);
         };
+
+        public ShootWeb(x: number, y:number):void {
+            console.log(x + ", " + y);
+        }
     }
 }

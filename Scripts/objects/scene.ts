@@ -22,5 +22,6 @@ module objects {
         public abstract Reset():void;
 
         public abstract Main():void;
+
     }
 }
