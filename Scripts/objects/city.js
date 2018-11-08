@@ -2,39 +2,83 @@ var objects;
 (function (objects) {
     class City {
         constructor(scene) {
-            this._distanceMin = 400;
-            this._distanceMax = 300;
+            // Constants
+            this._DISTANCE_MAX = 300;
+            this._DISTANCE_MIN = 200;
+            this._NUM_BUILDINGS = 10;
+            this._BUILDINGDS_FLOOR_DECRESE = 30;
             this._leftBorderPosition = 0;
             this._rightBorder = 0;
-            this._numBuldings = 10;
+            this._floorMin = 10;
             this._scene = scene;
+            this._buildingCount = 0;
             this.buildings = new Array();
-            this.GetNewBuldings();
+            this.clothesLines = new Array();
+            this.CheckBounderies();
         }
         Scroll(distance) {
             this._leftBorderPosition -= distance;
             for (let i = 0; i < this.buildings.length; i++) {
                 this.buildings[i].Scroll(distance);
             }
-            this.GetNewBuldings();
+            for (let i = 0; i < this.clothesLines.length; i++) {
+                this.clothesLines[i].Scroll(distance);
+            }
+            this.CheckBounderies();
         }
-        GetNewBuldings() {
-            while (this._rightBorder + this._leftBorderPosition < managers.SCREEN_WITH || this.buildings.length < this._numBuldings) {
-                this._rightBorder += this._distanceMin + Math.floor(Math.random() * (this._distanceMax - this._distanceMin));
-                let floors = Math.floor((Math.random() * 3) + 10);
-                let position = this._rightBorder + this._leftBorderPosition;
-                let found = false;
-                for (let i = 0; i < this.buildings.length; i++) {
-                    if (!this.buildings[i].IsActive()) {
-                        this.buildings[i].Reset(floors, position);
+        CheckBounderies() {
+            while (this._rightBorder + this._leftBorderPosition < managers.SCREEN_WITH || this.buildings.length < this._NUM_BUILDINGS) {
+                let separation = this._DISTANCE_MIN + Math.floor(Math.random() * (this._DISTANCE_MAX - this._DISTANCE_MIN));
+                let previousBorder = this._rightBorder;
+                this._rightBorder += separation;
+                this._buildingCount++;
+                console.log(this._buildingCount + ", " + this._floorMin, ", clothes:" + this.clothesLines.length);
+                if (this._buildingCount % this._BUILDINGDS_FLOOR_DECRESE == 0) {
+                    if (this._floorMin > 5) {
+                        this._floorMin -= 1;
+                    }
+                }
+                this._getBuilding();
+                this._getCloths(previousBorder, separation);
+            }
+        }
+        _getBuilding() {
+            let floors = Math.floor((Math.random() * 3) + this._floorMin);
+            let position = this._rightBorder + this._leftBorderPosition;
+            let found = false;
+            // look for any available building
+            for (let i = 0; i < this.buildings.length; i++) {
+                if (!this.buildings[i].IsActive()) {
+                    this.buildings[i].Reset(floors, position);
+                    this._rightBorder += this.buildings[i].getBounds().width;
+                    found = true;
+                    break;
+                }
+            }
+            // create a new building
+            if (!found) {
+                let building = new objects.Building(floors, position);
+                this.buildings[this.buildings.length] = building;
+                this._rightBorder += building.getBounds().width;
+                this._scene.addChild(building);
+            }
+        }
+        _getCloths(previousBorder, separation) {
+            let clotheHeight = Math.floor((Math.random() * 400) + 300);
+            let found;
+            if (this._buildingCount > 2) {
+                found = false;
+                for (let i = 0; i < this.clothesLines.length; i++) {
+                    if (!this.clothesLines[i].IsActive()) {
+                        this.clothesLines[i].Activate(previousBorder + this._leftBorderPosition, clotheHeight, separation);
                         found = true;
                         break;
                     }
                 }
                 if (!found) {
-                    let building = new objects.Building(floors, position);
-                    this.buildings[this.buildings.length] = building;
-                    this._scene.addChild(building);
+                    let clothes = new objects.Clothes(previousBorder + this._leftBorderPosition, clotheHeight, separation);
+                    this.clothesLines[this.clothesLines.length] = clothes;
+                    this._scene.addChild(clothes);
                 }
             }
         }

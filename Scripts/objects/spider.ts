@@ -24,17 +24,23 @@ module objects {
             this.regX = this.HalfWidth;
             this.regY = this.HalfHeight;
             this._webMinDistance = 30;
-            this._webUpSpeed = 2;
-            this.y = 100;
-            this.x = 100;
+            this._webUpSpeed = 0.5;
             this._isAnchor = false;
             this._velocity = new util.Vector2(0,0);
             this._time = Date.now();
        }
 
         public Update():void {
+            if(this._anchorDistance > this._webMinDistance) {
+                this._anchorDistance -= this._webUpSpeed;
+            }
+
             if(managers.Input.isKeydown("ArrowUp") && this._anchorDistance > this._webMinDistance) {
                 this._anchorDistance -= this._webUpSpeed;
+            }
+
+            if(managers.Input.isKeydown("ArrowDown")) {
+                this._anchorDistance += this._webUpSpeed * 2;
             }
 
             this._velocity.y += managers.GRAVITY * (Date.now() - this._time) / 1000;
@@ -83,6 +89,9 @@ module objects {
             } else {
                 this._web.Move(anchor, new util.Vector2(this.x, this.y), this._anchorDistance);
             }
+            // initial extra impulse
+            this._velocity.y += managers.GRAVITY / 2;
+
         }
 
         private GetAnchorDistance():number {

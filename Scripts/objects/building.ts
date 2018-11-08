@@ -7,7 +7,7 @@ module objects {
             super(managers.Game.assetMnager.getResult("building2"));
             this.floors = floors;
             this.x = position;
-            this.y = managers.SCREEN_HEIGHT - (this.floors * managers.BLOCK_HEIGHT);
+            this.y = managers.SCREEN_HEIGHT - (this.floors * managers.BLOCK_HEIGHT) + 36;
             this.Reset(floors ,position);
 
             this.on("mouseover", this._over);
@@ -30,7 +30,7 @@ module objects {
         public Reset(floors:number, position:number): void {
             this.floors = floors;
             this.x = position;
-            this.y = managers.SCREEN_HEIGHT - (this.floors * managers.BLOCK_HEIGHT);
+            this.y = managers.SCREEN_HEIGHT - (this.floors * managers.BLOCK_HEIGHT) + 36;
             this._active = true;
         }
 
@@ -50,6 +50,7 @@ module objects {
             if(this._active) {
                 this.x -= distance;
                 if(this.x < - this.getBounds().width) {
+                    managers.Game.scoreboard.Score += 100;
                     this._active = false;
                 }
             }
