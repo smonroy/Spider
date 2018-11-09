@@ -45,7 +45,6 @@ module objects {
                 let previousBorder = this._rightBorder;
                 this._rightBorder += separation;
                 this._buildingCount++;
-                console.log(this._buildingCount + ", " + this._floorMin, ", clothes:" + this.clothesLines.length);
                 if(this._buildingCount % this._BUILDINGDS_FLOOR_DECRESE == 0) {
                     if(this._floorMin > 5) {
                         this._floorMin -= 1;
@@ -102,8 +101,10 @@ module objects {
             }
         }
 
-        IsInBuilding(x:number, y:number):boolean {
-            return false;
+        public CheckCollision():void {
+            for(let clothes of this.clothesLines) {
+                clothes.CheckCollision();
+            }
         }
 
     }

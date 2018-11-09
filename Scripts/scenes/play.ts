@@ -22,11 +22,10 @@ module scenes {
         };
 
         public Update():void {
-            if(!this._spider.IsAnchor()) {
-                this._spider.SetAnchor(new util.Vector2(150, 0));
-            }
 
             this._spider.Update();
+            this._city.CheckCollision();
+
             if(this._spider.x > managers.SCROLL_TRIGER) {
                 this._scrolling = true;
             }
@@ -51,14 +50,6 @@ module scenes {
                     background.Scroll(diff);
                 }
             }
-
-
-            // managers.Collision.Check(this._player, this._island);
-
-            // for (let cloud of this._clouds) {
-            //     cloud.Update();
-            //     managers.Collision.Check(this._player, cloud);
-            // }
 
         };
 
@@ -92,7 +83,7 @@ module scenes {
             this._sidewalk = new objects.Sidewalk(0, 704, 1, 1, 1);
             this.addChild(this._sidewalk);
 
-            this._spider = new objects.Spider(150, 300);
+            this._spider = new objects.Spider(this, 150, 300);
             managers.Game.player = this._spider;
             this.addChild(this._spider);
 

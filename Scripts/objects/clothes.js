@@ -10,6 +10,7 @@ var objects;
         // public methods
         Reset() {
             this.IsColliding = false;
+            this.x = -1000;
         }
         Activate(x, y, length) {
             this.x = x;
@@ -33,6 +34,18 @@ var objects;
         }
         IsActive() {
             return this._active;
+        }
+        CheckCollision() {
+            if (this._active) {
+                if (managers.Game.player.x + managers.Game.player.HalfWidth > this.x &&
+                    managers.Game.player.x - managers.Game.player.HalfWidth < this.x + (this.Width * this.scaleX) &&
+                    managers.Game.player.y + managers.Game.player.HalfHeight > this.y &&
+                    managers.Game.player.y - managers.Game.player.HalfHeight < this.y + (this.Height * this.scaleY)) {
+                    managers.Game.scoreboard.Score -= 50;
+                    this.Reset();
+                    managers.Game.player.Clothes();
+                }
+            }
         }
     }
     objects.Clothes = Clothes;

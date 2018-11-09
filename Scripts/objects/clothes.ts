@@ -15,6 +15,7 @@ module objects {
         // public methods
         public Reset():void {
             this.IsColliding = false;
+            this.x = -1000;
         }
 
         public Activate(x:number, y:number, length:number):void {
@@ -28,6 +29,7 @@ module objects {
         }
 
         public Update():void {
+
         }
 
         public Destroy():void {
@@ -45,6 +47,19 @@ module objects {
 
         public IsActive():boolean {
             return this._active;
+        }
+
+        public CheckCollision():void {
+            if(this._active) {
+                if(managers.Game.player.x + managers.Game.player.HalfWidth > this.x && 
+                    managers.Game.player.x - managers.Game.player.HalfWidth < this.x + (this.Width * this.scaleX) &&
+                    managers.Game.player.y + managers.Game.player.HalfHeight > this.y &&
+                    managers.Game.player.y - managers.Game.player.HalfHeight < this.y + (this.Height * this.scaleY)) {
+                    managers.Game.scoreboard.Score -= 50;
+                    this.Reset();
+                    managers.Game.player.Clothes();
+                }
+            }
         }
 
     }
