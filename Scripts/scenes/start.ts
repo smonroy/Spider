@@ -6,6 +6,7 @@ module scenes {
         private _spider:objects.Spider;
         private _sidewalk:objects.Sidewalk;
         private _startButton:objects.Button;
+        private _background:objects.Background[];
 
         constructor() {
             super();
@@ -16,6 +17,17 @@ module scenes {
         public Start():void {
             this._sky = new objects.Sky();
             this.addChild(this._sky);
+
+            this._background = new Array<objects.Background>();
+
+            this._background[0] = new objects.Background(0, 256, 0.5, 2, 1);
+            this._background[1] = new objects.Background(4096, 256, 0.5, 2, 1);
+            this._background[2] = new objects.Background(0, 384, 0.25, 1.5, 0.5);
+            this._background[3] = new objects.Background(3072, 384, 0.25, 1.5, 0.5);
+
+            for (let background of this._background) {
+                this.addChild(background);
+            }
 
             this._sidewalk = new objects.Sidewalk(0, 704, 1, 1, 1);
             this.addChild(this._sidewalk);
@@ -37,6 +49,10 @@ module scenes {
         public Update():void {
             this._sky.Update();
             this._spider.Update();
+            this._sidewalk.Scroll(1);
+            for (let background of this._background) {
+                background.Scroll(1);
+            }
         };
 
         public Destroy():void {

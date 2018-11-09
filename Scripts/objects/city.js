@@ -42,13 +42,14 @@ var objects;
             }
         }
         _getBuilding() {
-            let floors = Math.floor((Math.random() * 3) + this._floorMin);
+            this._floorPrev = this._floorCurrent;
+            this._floorCurrent = Math.floor((Math.random() * 3) + this._floorMin);
             let position = this._rightBorder + this._leftBorderPosition;
             let found = false;
             // look for any available building
             for (let i = 0; i < this.buildings.length; i++) {
                 if (!this.buildings[i].IsActive()) {
-                    this.buildings[i].Reset(floors, position);
+                    this.buildings[i].Reset(this._floorCurrent, position);
                     this._rightBorder += this.buildings[i].getBounds().width;
                     found = true;
                     break;
@@ -56,28 +57,33 @@ var objects;
             }
             // create a new building
             if (!found) {
-                let building = new objects.Building(floors, position);
+                let building = new objects.Building(this._floorCurrent, position);
                 this.buildings[this.buildings.length] = building;
                 this._rightBorder += building.getBounds().width;
                 this._scene.addChild(building);
             }
         }
         _getCloths(previousBorder, separation) {
-            let clotheHeight = Math.floor((Math.random() * 400) + 300);
-            let found;
-            if (this._buildingCount > 2) {
-                found = false;
-                for (let i = 0; i < this.clothesLines.length; i++) {
-                    if (!this.clothesLines[i].IsActive()) {
-                        this.clothesLines[i].Activate(previousBorder + this._leftBorderPosition, clotheHeight, separation);
-                        found = true;
-                        break;
+            let clothesProbability = 50 + this._buildingCount;
+            if (Math.random() * 100 > clothesProbability) {
+                let clothesHeightMax = managers.SCREEN_HEIGHT - (Math.min(this._floorCurrent, this._floorPrev) * managers.BLOCK_HEIGHT) + 36;
+                let clothesHeightMin = managers.SCREEN_HEIGHT - (3 * managers.BLOCK_HEIGHT) + 36;
+                let clothesHeight = (Math.random() * (clothesHeightMax - clothesHeightMin)) + clothesHeightMin;
+                let found;
+                if (this._buildingCount > 2) {
+                    found = false;
+                    for (let i = 0; i < this.clothesLines.length; i++) {
+                        if (!this.clothesLines[i].IsActive()) {
+                            this.clothesLines[i].Activate(previousBorder + this._leftBorderPosition, clothesHeight, separation);
+                            found = true;
+                            break;
+                        }
                     }
-                }
-                if (!found) {
-                    let clothes = new objects.Clothes(previousBorder + this._leftBorderPosition, clotheHeight, separation);
-                    this.clothesLines[this.clothesLines.length] = clothes;
-                    this._scene.addChild(clothes);
+                    if (!found) {
+                        let clothes = new objects.Clothes(previousBorder + this._leftBorderPosition, clothesHeight, separation);
+                        this.clothesLines[this.clothesLines.length] = clothes;
+                        this._scene.addChild(clothes);
+                    }
                 }
             }
         }

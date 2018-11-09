@@ -8,6 +8,14 @@ var scenes;
         Start() {
             this._sky = new objects.Sky();
             this.addChild(this._sky);
+            this._background = new Array();
+            this._background[0] = new objects.Background(0, 256, 0.5, 2, 1);
+            this._background[1] = new objects.Background(4096, 256, 0.5, 2, 1);
+            this._background[2] = new objects.Background(0, 384, 0.25, 1.5, 0.5);
+            this._background[3] = new objects.Background(3072, 384, 0.25, 1.5, 0.5);
+            for (let background of this._background) {
+                this.addChild(background);
+            }
             this._sidewalk = new objects.Sidewalk(0, 704, 1, 1, 1);
             this.addChild(this._sidewalk);
             this._spider = new objects.Spider(this, managers.SCREEN_WITH / 2, managers.SCREEN_HEIGHT - 100);
@@ -24,6 +32,10 @@ var scenes;
         Update() {
             this._sky.Update();
             this._spider.Update();
+            this._sidewalk.Scroll(1);
+            for (let background of this._background) {
+                background.Scroll(1);
+            }
         }
         ;
         Destroy() {

@@ -16,7 +16,7 @@ module managers {
             this._score = Math.max(newValue, 0);
             this._scoreLabel.text = "Score: " + this._score;
             if(this._score > this._highScore) {
-                this._highScore = this._score;
+                this.HighScore = this._score;
             }
         }
 
