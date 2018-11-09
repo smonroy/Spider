@@ -12,8 +12,11 @@ var managers;
             return this._score;
         }
         set Score(newValue) {
-            this._score = newValue;
+            this._score = Math.max(newValue, 0);
             this._scoreLabel.text = "Score: " + this._score;
+            if (this._score > this._highScore) {
+                this._highScore = this._score;
+            }
         }
         get Lives() {
             return this._lives;
@@ -34,7 +37,7 @@ var managers;
         Start() {
             this._scoreLabel = new objects.Label("Score: 99999", "30px", "Consolas", "#000000", 350, 10, false);
             this._livesLabel = new objects.Label("Lives: 99", "30px", "Consolas", "#000000", 20, 10, false);
-            this._highScoreLabel = new objects.Label("High Score: 999999", "60px", "Consolas", "#FFFF00", 320, 140, true);
+            this._highScoreLabel = new objects.Label("High Score: 999999", "60px", "Consolas", "#FF0000", 20, 10, false);
         }
         AddGameUI(currentScene) {
             currentScene.addChild(this._scoreLabel);

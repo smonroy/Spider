@@ -2,7 +2,9 @@ module scenes {
     export class Start extends objects.Scene{
 
         private _welcomeLabel:objects.Label;
-        private _ocean:objects.Ocean;
+        private _sky:objects.Sky;
+        private _spider:objects.Spider;
+        private _sidewalk:objects.Sidewalk;
         private _startButton:objects.Button;
 
         constructor() {
@@ -12,14 +14,29 @@ module scenes {
         }
 
         public Start():void {
-            this._ocean = new objects.Ocean();
-            this._welcomeLabel = new objects.Label("Mail Pilot", "60px", "Consolas", "#FFFF00", 320, 240, true);
-            this._startButton = new objects.Button("startButton", 320, 360, true);
-            this.Main();
+            this._sky = new objects.Sky();
+            this.addChild(this._sky);
+
+            this._sidewalk = new objects.Sidewalk(0, 704, 1, 1, 1);
+            this.addChild(this._sidewalk);
+
+            this._spider = new objects.Spider(this, managers.SCREEN_WITH / 2, managers.SCREEN_HEIGHT - 100);
+            this.addChild(this._spider);
+
+            this._welcomeLabel = new objects.Label("Red Spider", "60px", "Consolas", "#FF0000", managers.SCREEN_WITH/2, 240, true);
+            this.addChild(this._welcomeLabel);
+
+            this._startButton = new objects.Button("startButton", managers.SCREEN_WITH/2, 360, true);
+            this.addChild(this._startButton);
+
+            this._startButton.on("click", ()=>{
+                managers.Game.currentState = config.Scene.PLAY;
+            });
         };
 
         public Update():void {
-            this._ocean.Update();
+            this._sky.Update();
+            this._spider.Update();
         };
 
         public Destroy():void {
@@ -31,15 +48,7 @@ module scenes {
         };
 
         public Main():void {
-            this.addChild(this._ocean);
-    
-            this.addChild(this._welcomeLabel);
-    
-            this.addChild(this._startButton);
-
-            this._startButton.on("click", ()=>{
-                managers.Game.currentState = config.Scene.PLAY;
-            });
+            
         };
     }
 }

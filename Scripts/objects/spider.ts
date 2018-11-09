@@ -10,7 +10,8 @@ module objects {
         private _webUpSpeed:number;
         private _sidewalkCollision:boolean;
         private _scene:objects.Scene;
-        private _rotateSpeed:number;
+
+        public rotateSpeed:number;
         
         // constructors
         constructor(scene:objects.Scene, x:number, y:number) {
@@ -27,7 +28,7 @@ module objects {
             this.regY = this.HalfHeight;
             this._webMinDistance = 30;
             this._webUpSpeed = 0.5;
-            this._rotateSpeed = 0;
+            this.rotateSpeed = 0;
             this._isAnchor = false;
             this._velocity = new util.Vector2(0,0);
             this._time = Date.now();
@@ -38,6 +39,7 @@ module objects {
        }
 
         public Update():void {
+
             if(this._anchorDistance > this._webMinDistance) {
                 this._anchorDistance -= this._webUpSpeed;
             }
@@ -57,7 +59,9 @@ module objects {
             // contraing movement due the web
             if(this._isAnchor && this.GetFutureAnchorDistance() > this._anchorDistance)  {
                 let teta:number = Math.atan2(this._anchor.x - this.x, this.y - this._anchor.y);
-                this.rotation = teta * 180 / Math.PI;
+                if(this.rotateSpeed == 0) {
+                    this.rotation = teta * 180 / Math.PI;
+                }
                 let sin:number = Math.sin(teta);
                 let cos:number = Math.cos(teta);
                 let velocityTan:number = (this._velocity.y * sin) + (this._velocity.x * cos);
@@ -84,6 +88,13 @@ module objects {
             }
 
             // check sidewalk collision
+            this._chechSidewalkCollision();
+
+            this.rotation += this.rotateSpeed;
+
+        }
+
+        private _chechSidewalkCollision(){
             if(this.y > managers.SCREEN_HEIGHT - 52) {
                 this.y = managers.SCREEN_HEIGHT - 52;
                 this._velocity.y = 0;
@@ -91,19 +102,19 @@ module objects {
                 if(!this._sidewalkCollision) {
                     this._sidewalkCollision = true;
                     this.rotation = 0;
-                    this._rotateSpeed = 0;
+                    this.rotateSpeed = 0;
                     this._isAnchor = false;
                     this._web.Reset();
                     managers.Game.scoreboard.Lives--;
+                    if(managers.Game.scoreboard.Lives <= 0) {
+                        managers.Game.currentState = config.Scene.OVER;
+                    }
                 }
-            } else {
-                this.rotation += this._rotateSpeed;
             }
 
             if(this._sidewalkCollision && this.y < managers.SCREEN_HEIGHT - 58) {
                 this._sidewalkCollision = false;
             }
-
         }
 
         public Reset() {
@@ -119,14 +130,15 @@ module objects {
         }
 
         public SetAnchor(anchor:util.Vector2):void {
-            this._anchor = anchor;
-            this._anchorDistance = this.GetAnchorDistance();
-            this._web.Move(anchor, new util.Vector2(this.x, this.y), this._anchorDistance);
-            this._isAnchor = true;
-            this._rotateSpeed = 0;
-            
-            this._velocity.y += managers.GRAVITY / 2;   // initial extra impulse
-
+            if(!this._sidewalkCollision || anchor.x < this.x || anchor.x < managers.SCREEN_WITH / 2) {
+                this._anchor = anchor;
+                this._anchorDistance = this.GetAnchorDistance();
+                this._web.Move(anchor, new util.Vector2(this.x, this.y), this._anchorDistance);
+                this._isAnchor = true;
+                this.rotateSpeed = 0;
+                
+                this._velocity.y += managers.GRAVITY / 2;   // initial extra impulse
+            }
         }
 
         private GetAnchorDistance():number {
@@ -145,7 +157,7 @@ module objects {
 
         public Clothes():void {
             this.rotation = 0;
-            this._rotateSpeed = 10;
+            this.rotateSpeed = 10;
             this._isAnchor = false;
             this._web.Reset();
         }

@@ -15,7 +15,7 @@ var objects;
             this.regY = this.HalfHeight;
             this._webMinDistance = 30;
             this._webUpSpeed = 0.5;
-            this._rotateSpeed = 0;
+            this.rotateSpeed = 0;
             this._isAnchor = false;
             this._velocity = new util.Vector2(0, 0);
             this._time = Date.now();
@@ -40,7 +40,9 @@ var objects;
             // contraing movement due the web
             if (this._isAnchor && this.GetFutureAnchorDistance() > this._anchorDistance) {
                 let teta = Math.atan2(this._anchor.x - this.x, this.y - this._anchor.y);
-                this.rotation = teta * 180 / Math.PI;
+                if (this.rotateSpeed == 0) {
+                    this.rotation = teta * 180 / Math.PI;
+                }
                 let sin = Math.sin(teta);
                 let cos = Math.cos(teta);
                 let velocityTan = (this._velocity.y * sin) + (this._velocity.x * cos);
@@ -62,6 +64,10 @@ var objects;
                 this._web.Rotate(new util.Vector2(this.x, this.y));
             }
             // check sidewalk collision
+            this._chechSidewalkCollision();
+            this.rotation += this.rotateSpeed;
+        }
+        _chechSidewalkCollision() {
             if (this.y > managers.SCREEN_HEIGHT - 52) {
                 this.y = managers.SCREEN_HEIGHT - 52;
                 this._velocity.y = 0;
@@ -69,14 +75,14 @@ var objects;
                 if (!this._sidewalkCollision) {
                     this._sidewalkCollision = true;
                     this.rotation = 0;
-                    this._rotateSpeed = 0;
+                    this.rotateSpeed = 0;
                     this._isAnchor = false;
                     this._web.Reset();
                     managers.Game.scoreboard.Lives--;
+                    if (managers.Game.scoreboard.Lives <= 0) {
+                        managers.Game.currentState = config.Scene.OVER;
+                    }
                 }
-            }
-            else {
-                this.rotation += this._rotateSpeed;
             }
             if (this._sidewalkCollision && this.y < managers.SCREEN_HEIGHT - 58) {
                 this._sidewalkCollision = false;
@@ -90,12 +96,14 @@ var objects;
             return this._isAnchor;
         }
         SetAnchor(anchor) {
-            this._anchor = anchor;
-            this._anchorDistance = this.GetAnchorDistance();
-            this._web.Move(anchor, new util.Vector2(this.x, this.y), this._anchorDistance);
-            this._isAnchor = true;
-            this._rotateSpeed = 0;
-            this._velocity.y += managers.GRAVITY / 2; // initial extra impulse
+            if (!this._sidewalkCollision || anchor.x < this.x || anchor.x < managers.SCREEN_WITH / 2) {
+                this._anchor = anchor;
+                this._anchorDistance = this.GetAnchorDistance();
+                this._web.Move(anchor, new util.Vector2(this.x, this.y), this._anchorDistance);
+                this._isAnchor = true;
+                this.rotateSpeed = 0;
+                this._velocity.y += managers.GRAVITY / 2; // initial extra impulse
+            }
         }
         GetAnchorDistance() {
             return util.Vector2.Distance(new util.Vector2(this.x, this.y), this._anchor);
@@ -110,7 +118,7 @@ var objects;
         }
         Clothes() {
             this.rotation = 0;
-            this._rotateSpeed = 10;
+            this.rotateSpeed = 10;
             this._isAnchor = false;
             this._web.Reset();
         }

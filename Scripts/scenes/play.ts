@@ -3,7 +3,6 @@ module scenes {
 
         private _sky:objects.Sky;
         private _city:objects.City;
-        private _building:objects.Building;
         private _spider:objects.Spider;
         private _scrolling:boolean;
         private _sidewalk:objects.Sidewalk;
@@ -95,8 +94,5 @@ module scenes {
             managers.Game.scoreboard.AddGameUI(this);
         };
 
-        // public ShootWeb(x: number, y:number):void {
-        //     console.log(x + ", " + y);
-        // }
     }
 }
