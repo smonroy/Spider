@@ -18,6 +18,7 @@ module objects {
         // public variables
         public buildings:objects.Building[];
         public clothesLines:objects.Clothes[];
+        public bonus:objects.Bonus[];
 
         constructor(scene:objects.Scene) {
             this._leftBorderPosition = 0;
@@ -27,6 +28,7 @@ module objects {
             this._buildingCount = 0;
             this.buildings = new Array<objects.Building>();
             this.clothesLines = new Array<objects.Clothes>();
+            this.bonus = new Array<objects.Bonus>();
             this.CheckBounderies();
         }
 
@@ -37,6 +39,9 @@ module objects {
             }
             for(let i:number = 0; i < this.clothesLines.length; i++) {
                 this.clothesLines[i].Scroll(distance);
+            }
+            for(let i:number = 0; i < this.bonus.length; i++) {
+                this.bonus[i].Scroll(distance);
             }
             this.CheckBounderies();
         }
@@ -81,6 +86,8 @@ module objects {
                 this._rightBorder += building.getBounds().width;
                 this._scene.addChild(building);
             }
+
+            this._getBonus(position, this._floorCurrent);
         }
 
         private _getCloths(previousBorder:number, separation:number):void {
@@ -109,9 +116,39 @@ module objects {
             }
         }
 
+        private _getBonus(position:number, floors:number):void {
+            let bonusProbability = 50 + this._buildingCount;
+            if(Math.random() * 100 < bonusProbability) {
+                let floor = Math.floor((Math.random() * (floors - 2)) + 1);
+                let column = Math.floor((Math.random() * 4) + 1); 
+                let x = position + (column * 32) - 32 + 3;
+                let y = managers.SCREEN_HEIGHT - ((floor - 1) * managers.BLOCK_HEIGHT) - 12;
+                let found:boolean;
+                if(this._buildingCount > 2) {
+                    found = false;
+                    for(let i:number = 0; i < this.bonus.length; i++) {
+                        if(!this.bonus[i].IsActive()) {
+                            this.bonus[i].Activate(x, y);
+                            found = true;
+                            break;
+                        }
+                    }
+    
+                    if(!found) {                        
+                        let bonus = new objects.Bonus(x, y);
+                        this.bonus[this.bonus.length] = bonus;
+                        this._scene.addChild(bonus);
+                    }
+                }
+            }
+        }
+
         public CheckCollision():void {
             for(let clothes of this.clothesLines) {
                 clothes.CheckCollision();
+            }
+            for(let bonus of this.bonus) {
+                bonus.CheckCollision();
             }
         }
 

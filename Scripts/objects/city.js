@@ -14,6 +14,7 @@ var objects;
             this._buildingCount = 0;
             this.buildings = new Array();
             this.clothesLines = new Array();
+            this.bonus = new Array();
             this.CheckBounderies();
         }
         Scroll(distance) {
@@ -23,6 +24,9 @@ var objects;
             }
             for (let i = 0; i < this.clothesLines.length; i++) {
                 this.clothesLines[i].Scroll(distance);
+            }
+            for (let i = 0; i < this.bonus.length; i++) {
+                this.bonus[i].Scroll(distance);
             }
             this.CheckBounderies();
         }
@@ -62,6 +66,7 @@ var objects;
                 this._rightBorder += building.getBounds().width;
                 this._scene.addChild(building);
             }
+            this._getBonus(position, this._floorCurrent);
         }
         _getCloths(previousBorder, separation) {
             let clothesProbability = 50 + this._buildingCount;
@@ -87,9 +92,37 @@ var objects;
                 }
             }
         }
+        _getBonus(position, floors) {
+            let bonusProbability = 50 + this._buildingCount;
+            if (Math.random() * 100 < bonusProbability) {
+                let floor = Math.floor((Math.random() * (floors - 2)) + 1);
+                let column = Math.floor((Math.random() * 4) + 1);
+                let x = position + (column * 32) - 32 + 3;
+                let y = managers.SCREEN_HEIGHT - ((floor - 1) * managers.BLOCK_HEIGHT) - 12;
+                let found;
+                if (this._buildingCount > 2) {
+                    found = false;
+                    for (let i = 0; i < this.bonus.length; i++) {
+                        if (!this.bonus[i].IsActive()) {
+                            this.bonus[i].Activate(x, y);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        let bonus = new objects.Bonus(x, y);
+                        this.bonus[this.bonus.length] = bonus;
+                        this._scene.addChild(bonus);
+                    }
+                }
+            }
+        }
         CheckCollision() {
             for (let clothes of this.clothesLines) {
                 clothes.CheckCollision();
+            }
+            for (let bonus of this.bonus) {
+                bonus.CheckCollision();
             }
         }
     }
