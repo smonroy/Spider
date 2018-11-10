@@ -18,7 +18,9 @@ var objects;
             this.alpha = 1.0;
         }
         _click(event) {
-            managers.Game.player.SetAnchor(new util.Vector2(managers.Game.stage.mouseX, managers.Game.stage.mouseY));
+            if (managers.Game.player.status == objects.SpiderStatus.hanging || managers.Game.player.status == objects.SpiderStatus.falling) {
+                managers.Game.player.SetAnchor(new util.Vector2(managers.Game.stage.mouseX, managers.Game.stage.mouseY));
+            }
         }
         Reset(floors, position) {
             this.floors = floors;

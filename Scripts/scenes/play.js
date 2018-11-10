@@ -29,7 +29,6 @@ var scenes;
                 }
             }
             let diff = Math.floor(this._spider.x - managers.SCROLL_LIMIT);
-            diff = 10;
             if (diff > 0) {
                 this._city.Scroll(diff);
                 this._spider.Scroll(diff);

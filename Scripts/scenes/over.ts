@@ -21,8 +21,8 @@ module scenes {
             this.addChild(this._sidewalk);
 
             this._spider = new objects.Spider(this, managers.SCREEN_WITH / 2, managers.SCREEN_HEIGHT - 100);
-            this._spider.rotateSpeed = -15;
             this.addChild(this._spider);
+            managers.Game.scoreboard.Lives = 0;
             
             this._welcomeLabel = new objects.Label("Game Over", "60px", "Consolas", "#FF0000", managers.SCREEN_WITH / 2, 240, true);
             this.addChild(this._welcomeLabel);

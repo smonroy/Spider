@@ -65,7 +65,7 @@ var objects;
         }
         _getCloths(previousBorder, separation) {
             let clothesProbability = 50 + this._buildingCount;
-            if (Math.random() * 100 > clothesProbability) {
+            if (Math.random() * 100 < clothesProbability) {
                 let clothesHeightMax = managers.SCREEN_HEIGHT - (Math.min(this._floorCurrent, this._floorPrev) * managers.BLOCK_HEIGHT) + 36;
                 let clothesHeightMin = managers.SCREEN_HEIGHT - (3 * managers.BLOCK_HEIGHT) + 36;
                 let clothesHeight = (Math.random() * (clothesHeightMax - clothesHeightMin)) + clothesHeightMin;

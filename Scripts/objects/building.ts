@@ -24,7 +24,9 @@ module objects {
         }
 
         private _click(event:createjs.MouseEvent):void {
-            managers.Game.player.SetAnchor(new util.Vector2(managers.Game.stage.mouseX, managers.Game.stage.mouseY));
+            if(managers.Game.player.status == SpiderStatus.hanging || managers.Game.player.status == SpiderStatus.falling) {
+                managers.Game.player.SetAnchor(new util.Vector2(managers.Game.stage.mouseX, managers.Game.stage.mouseY));
+            }
         }
 
         public Reset(floors:number, position:number): void {
