@@ -1,3 +1,9 @@
+/**
+ * Author: Sergio Monroy Escalante - 300930580
+ * Date: Nov 11th, 2018
+ * 
+ * Object used as an obstacle for the spider, if the spider touch it, his web is broken and the spider start to fall down
+ */
 module objects {
     export class Clothes extends objects.GameObject {
         // private

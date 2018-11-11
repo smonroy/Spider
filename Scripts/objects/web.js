@@ -1,3 +1,9 @@
+/**
+ * Author: Sergio Monroy Escalante - 300930580
+ * Date: Nov 11th, 2018
+ *
+ * This opject is used to swing the spider in the buildings of the city
+ */
 var objects;
 (function (objects) {
     class Web extends objects.GameObject {

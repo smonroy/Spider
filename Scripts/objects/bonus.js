@@ -1,3 +1,9 @@
+/**
+ * Author: Sergio Monroy Escalante - 300930580
+ * Date: Nov 11th, 2018
+ *
+ * Happy face object that is used as bonus item. If the player collect all the five colors, he receive an extra life.
+ */
 var objects;
 (function (objects) {
     class Bonus extends objects.GameObject {

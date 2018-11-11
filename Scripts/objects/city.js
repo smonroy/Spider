@@ -1,3 +1,9 @@
+/**
+ * Author: Sergio Monroy Escalante - 300930580
+ * Date: Nov 11th, 2018
+ *
+ * class used to manager the buildings, the clotheslines and the bonus
+ */
 var objects;
 (function (objects) {
     class City {

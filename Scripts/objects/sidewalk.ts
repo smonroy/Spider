@@ -1,3 +1,9 @@
+/**
+ * Author: Sergio Monroy Escalante - 300930580
+ * Date: Nov 11th, 2018
+ * 
+ * Object used ad a floor of the scene
+ */
 module objects {
     export class Sidewalk extends GameObject {
         private _speed:number

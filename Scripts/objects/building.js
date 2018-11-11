@@ -1,3 +1,9 @@
+/**
+ * Author: Sergio Monroy Escalante - 300930580
+ * Date: Nov 11th, 2018
+ *
+ * Object to use to attack the web of the spider
+ */
 var objects;
 (function (objects) {
     class Building extends createjs.Bitmap {

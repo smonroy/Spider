@@ -1,3 +1,9 @@
+/**
+ * Author: Sergio Monroy Escalante - 300930580
+ * Date: Nov 11th, 2018
+ *
+ * Background image to produce a 3D efect in the city
+ */
 var objects;
 (function (objects) {
     class Background extends objects.GameObject {

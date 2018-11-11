@@ -1,3 +1,9 @@
+/**
+ * Author: Sergio Monroy Escalante - 300930580
+ * Date: Nov 11th, 2018
+ * 
+ * This is the main player character, the spider
+ */
 module objects {
     export enum SpiderStatus {hanging, falling, rolling, dead}
 
