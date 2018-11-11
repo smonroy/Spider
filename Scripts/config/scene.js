@@ -5,7 +5,9 @@ var config;
         Scene[Scene["START"] = 0] = "START";
         Scene[Scene["PLAY"] = 1] = "PLAY";
         Scene[Scene["OVER"] = 2] = "OVER";
-        Scene[Scene["SCENE_COUNT"] = 3] = "SCENE_COUNT";
+        Scene[Scene["INSTRUCTIONS"] = 3] = "INSTRUCTIONS";
+        Scene[Scene["ABOUT"] = 4] = "ABOUT";
+        Scene[Scene["SCENE_COUNT"] = 5] = "SCENE_COUNT";
     })(Scene = config.Scene || (config.Scene = {}));
 })(config || (config = {}));
 //# sourceMappingURL=scene.js.map

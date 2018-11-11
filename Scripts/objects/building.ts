@@ -4,7 +4,7 @@ module objects {
         public floors:number;
 
         constructor(floors:number, position:number) {
-            super(managers.Game.assetMnager.getResult("building2"));
+            super(managers.Game.assetMnager.getResult("building"));
             this.floors = floors;
             this.x = position;
             this.y = managers.SCREEN_HEIGHT - (this.floors * managers.BLOCK_HEIGHT) + 36;

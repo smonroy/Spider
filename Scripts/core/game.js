@@ -8,10 +8,15 @@
     let currentState;
     let scoreBoard;
     let assetManifest = [
-        { id: "startButton", src: "./Assets/Images/startButton.png" },
-        { id: "restartButton", src: "./Assets/Images/startButton.png" },
-        { id: "building2", src: "./Assets/Images/Building2.png" },
-        { id: "spider", src: "./Assets/Images/Spider1.png" },
+        { id: "playButton", src: "./Assets/Images/button_play.png" },
+        { id: "instructionsButton", src: "./Assets/Images/button_instructions.png" },
+        { id: "exitButton", src: "./Assets/Images/button_exit.png" },
+        { id: "mainMenuButton", src: "./Assets/Images/button_main-menu.png" },
+        { id: "playAgainButton", src: "./Assets/Images/button_play-again.png" },
+        { id: "building", src: "./Assets/Images/Building.png" },
+        { id: "spider1", src: "./Assets/Images/Spider1.png" },
+        { id: "spider2", src: "./Assets/Images/Spider2.png" },
+        { id: "spider3", src: "./Assets/Images/Spider3.png" },
         { id: "sky", src: "./Assets/Images/Sky.png" },
         { id: "webLine", src: "./Assets/Images/WebLine.png" },
         { id: "cityBackground", src: "./Assets/Images/City.png" },
@@ -78,6 +83,12 @@
                 break;
             case config.Scene.OVER:
                 currentScene = new scenes.Over();
+                break;
+            case config.Scene.INSTRUCTIONS:
+                currentScene = new scenes.Instructions();
+                break;
+            case config.Scene.ABOUT:
+                currentScene = new scenes.About();
                 break;
         }
         managers.Game.currentScene = currentScene;

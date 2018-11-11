@@ -10,7 +10,7 @@ var objects;
     class Spider extends objects.GameObject {
         // constructors
         constructor(scene, x, y) {
-            super("spider");
+            super("spider1");
             this.y = y;
             this.x = x;
             this._scene = scene;
@@ -28,6 +28,8 @@ var objects;
             this._web = new objects.Web();
             this._scene.addChild(this._web);
             this.SetAnchor(new util.Vector2(this.x, 0));
+            this._animationTime = Date.now() + 2000;
+            this._animationIndex = 1;
         }
         Update() {
             if (managers.Game.scoreboard.Lives <= 0) {
@@ -102,6 +104,8 @@ var objects;
             this.rotation += this._rotateSpeed;
             // check sidewalk collision
             this._chechSidewalkCollision();
+            // animation
+            this._animation();
         }
         _applyGravity() {
             this._velocity.y += managers.GRAVITY * (Date.now() - this._time) / 1000;
@@ -148,6 +152,40 @@ var objects;
             this._rotateSpeed = 10;
             this.status = SpiderStatus.falling;
             this._web.Reset();
+        }
+        _animation() {
+            if (Date.now() > this._animationTime) {
+                switch (this._animationIndex) {
+                    case 1:
+                        {
+                            this._animationIndex = 2;
+                            this.image = managers.Game.assetMnager.getResult("spider2");
+                            this._animationTime = Date.now() + 200;
+                        }
+                        break;
+                    case 2:
+                        {
+                            this._animationIndex = 3;
+                            this.image = managers.Game.assetMnager.getResult("spider1");
+                            this._animationTime = Date.now() + 2000;
+                        }
+                        break;
+                    case 3:
+                        {
+                            this._animationIndex = 4;
+                            this.image = managers.Game.assetMnager.getResult("spider3");
+                            this._animationTime = Date.now() + 200;
+                        }
+                        break;
+                    case 4:
+                        {
+                            this._animationIndex = 1;
+                            this.image = managers.Game.assetMnager.getResult("spider1");
+                            this._animationTime = Date.now() + 2000;
+                        }
+                        break;
+                }
+            }
         }
     }
     objects.Spider = Spider;

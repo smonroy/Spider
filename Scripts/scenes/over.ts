@@ -5,7 +5,8 @@ module scenes {
         private _sky:objects.Sky;
         private _spider:objects.Spider;
         private _sidewalk:objects.Sidewalk;
-        private _startButton:objects.Button;
+        private _playButton:objects.Button;
+        private _menuButton:objects.Button;
 
         constructor() {
             super();
@@ -27,13 +28,22 @@ module scenes {
             this._welcomeLabel = new objects.Label("Game Over", "60px", "Consolas", "#FF0000", managers.SCREEN_WITH / 2, 240, true);
             this.addChild(this._welcomeLabel);
 
-            this._startButton = new objects.Button("restartButton", managers.SCREEN_WITH / 2, 360, true);
-            this.addChild(this._startButton);
+            this._playButton = new objects.Button("playAgainButton", managers.SCREEN_WITH / 2, 340, true);
+            this.addChild(this._playButton);
 
-            this._startButton.on("click", ()=>{
+            this._playButton.on("click", ()=>{
                 managers.Game.currentState = config.Scene.PLAY;
                 managers.Game.scoreboard.Reset();
             });
+
+            this._menuButton = new objects.Button("mainMenuButton", managers.SCREEN_WITH / 2, 410, true);
+            this.addChild(this._menuButton);
+
+            this._menuButton.on("click", ()=>{
+                managers.Game.currentState = config.Scene.START;
+                managers.Game.scoreboard.Reset();
+            });
+
 
             managers.Game.scoreboard.AddHighScore(this);
 

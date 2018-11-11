@@ -3,6 +3,8 @@ module config {
         START,
         PLAY,
         OVER,
+        INSTRUCTIONS,
+        ABOUT,
         SCENE_COUNT
     }
 }

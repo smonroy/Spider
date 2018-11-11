@@ -93,9 +93,9 @@ var objects;
             }
         }
         _getBonus(position, floors) {
-            let bonusProbability = 50 + this._buildingCount;
+            let bonusProbability = 30 + this._buildingCount;
             if (Math.random() * 100 < bonusProbability) {
-                let floor = Math.floor((Math.random() * (floors - 2)) + 1);
+                let floor = Math.floor((Math.random() * (floors - 4)) + 4);
                 let column = Math.floor((Math.random() * 4) + 1);
                 let x = position + (column * 32) - 32 + 3;
                 let y = managers.SCREEN_HEIGHT - ((floor - 1) * managers.BLOCK_HEIGHT) - 12;

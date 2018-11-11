@@ -19,10 +19,13 @@ module objects {
         private _webMinDistance:number;     // when the spider pull his web, it stops in this distance
         private _webUpSpeed:number;         // when the spider pull his web, this is the speed to do it.
 
+        // animation
+        private _animationTime:number;
+        private _animationIndex:number;
         
         // constructors
         constructor(scene:objects.Scene, x:number, y:number) {
-            super("spider");
+            super("spider1");
             this.y = y;
             this.x = x;
             this._scene = scene;
@@ -41,6 +44,8 @@ module objects {
             this._web = new objects.Web();
             this._scene.addChild(this._web);
             this.SetAnchor(new util.Vector2(this.x, 0));
+            this._animationTime = Date.now() + 2000;
+            this._animationIndex = 1;
        }
 
         public Update():void {
@@ -112,7 +117,6 @@ module objects {
                     }
                 }
                 break;
-                
             }
 
             // applying the velocity
@@ -130,6 +134,8 @@ module objects {
             // check sidewalk collision
             this._chechSidewalkCollision();
 
+            // animation
+            this._animation();
         }
 
         private _applyGravity():void {
@@ -187,6 +193,37 @@ module objects {
             this._rotateSpeed = 10;
             this.status = SpiderStatus.falling;
             this._web.Reset();
+        }
+
+        private _animation(){
+            if(Date.now() > this._animationTime) {
+                switch(this._animationIndex) {
+                    case 1: {
+                        this._animationIndex = 2;           
+                        this.image = managers.Game.assetMnager.getResult("spider2") as HTMLImageElement;        
+                        this._animationTime = Date.now() + 200;
+                    }
+                    break;
+                    case 2: {
+                        this._animationIndex = 3;           
+                        this.image = managers.Game.assetMnager.getResult("spider1") as HTMLImageElement;        
+                        this._animationTime = Date.now() + 2000;
+                    }
+                    break;
+                    case 3: {
+                        this._animationIndex = 4;
+                        this.image = managers.Game.assetMnager.getResult("spider3") as HTMLImageElement;        
+                        this._animationTime = Date.now() + 200;
+                    }
+                    break;
+                    case 4: {
+                        this._animationIndex = 1;           
+                        this.image = managers.Game.assetMnager.getResult("spider1") as HTMLImageElement;        
+                        this._animationTime = Date.now() + 2000;
+                    }
+                    break;
+                }
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 var scenes;
 (function (scenes) {
-    class Start extends objects.Scene {
+    class About extends objects.Scene {
         constructor() {
             super();
             this.Start();
@@ -20,22 +20,12 @@ var scenes;
             this.addChild(this._sidewalk);
             this._spider = new objects.Spider(this, managers.SCREEN_WITH / 2, managers.SCREEN_HEIGHT - 100);
             this.addChild(this._spider);
-            this._welcomeLabel = new objects.Label("Red Spider", "60px", "Consolas", "#FF0000", managers.SCREEN_WITH / 2, 240, true);
+            this._welcomeLabel = new objects.Label("Thanks for play Red Spider", "40px", "Consolas", "#000000", managers.SCREEN_WITH / 2, 240, true);
             this.addChild(this._welcomeLabel);
-            this._playButton = new objects.Button("playButton", managers.SCREEN_WITH / 2, 340, true);
-            this.addChild(this._playButton);
-            this._playButton.on("click", () => {
-                managers.Game.currentState = config.Scene.PLAY;
-            });
-            this._instructionsButton = new objects.Button("instructionsButton", managers.SCREEN_WITH / 2, 410, true);
-            this.addChild(this._instructionsButton);
-            this._instructionsButton.on("click", () => {
-                managers.Game.currentState = config.Scene.INSTRUCTIONS;
-            });
-            this._exitButton = new objects.Button("exitButton", managers.SCREEN_WITH / 2, 480, true);
+            this._exitButton = new objects.Button("mainMenuButton", managers.SCREEN_WITH / 2, 480, true);
             this.addChild(this._exitButton);
             this._exitButton.on("click", () => {
-                managers.Game.currentState = config.Scene.ABOUT;
+                managers.Game.currentState = config.Scene.START;
             });
         }
         ;
@@ -59,6 +49,6 @@ var scenes;
         }
         ;
     }
-    scenes.Start = Start;
+    scenes.About = About;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=start.js.map
+//# sourceMappingURL=about.js.map
