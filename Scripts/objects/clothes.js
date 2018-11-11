@@ -42,6 +42,8 @@ var objects;
                     managers.Game.player.y + managers.Game.player.HalfHeight > this.y &&
                     managers.Game.player.y - managers.Game.player.HalfHeight < this.y + (this.Height * this.scaleY)) {
                     managers.Game.scoreboard.Score -= 90;
+                    let sound = createjs.Sound.play("web2Sound");
+                    sound.volume = 0.1;
                     this.Reset();
                     managers.Game.player.Clothes();
                 }

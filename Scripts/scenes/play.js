@@ -1,7 +1,6 @@
 var scenes;
 (function (scenes) {
     class Play extends objects.Scene {
-        // private _engineSound:createjs.AbstractSoundInstance;
         constructor() {
             super();
             this.Start();
@@ -41,7 +40,7 @@ var scenes;
         ;
         Destroy() {
             this.removeAllChildren();
-            // this._engineSound.stop();
+            this._backgroundMusic.stop();
         }
         ;
         Reset() {
@@ -64,9 +63,9 @@ var scenes;
             this._spider = new objects.Spider(this, 150, 300);
             managers.Game.player = this._spider;
             this.addChild(this._spider);
-            // this._engineSound = createjs.Sound.play("engineSound");
-            // this._engineSound.volume = 0.1;
-            // this._engineSound.loop = 1;
+            this._backgroundMusic = createjs.Sound.play("backgroundMusic");
+            this._backgroundMusic.volume = 0.1;
+            this._backgroundMusic.loop = 1;
             managers.Game.scoreboard.AddGameUI(this);
         }
         ;

@@ -49,6 +49,8 @@ var managers;
                         return;
                     }
                 }
+                let sound = createjs.Sound.play("extraLifeSound");
+                sound.volume = 1;
                 this.Lives++;
                 this.Score += 1000;
                 for (let i = 1; i <= 5; i++) {

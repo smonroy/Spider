@@ -7,7 +7,7 @@ module scenes {
         private _scrolling:boolean;
         private _sidewalk:objects.Sidewalk;
         private _background:objects.Background[];
-        // private _engineSound:createjs.AbstractSoundInstance;
+        private _backgroundMusic:createjs.AbstractSoundInstance;
 
         constructor() {
             super();
@@ -54,7 +54,7 @@ module scenes {
 
         public Destroy():void {
             this.removeAllChildren();
-            // this._engineSound.stop();
+            this._backgroundMusic.stop();
         };
 
         public Reset():void {
@@ -87,9 +87,9 @@ module scenes {
             this.addChild(this._spider);
 
 
-            // this._engineSound = createjs.Sound.play("engineSound");
-            // this._engineSound.volume = 0.1;
-            // this._engineSound.loop = 1;
+            this._backgroundMusic = createjs.Sound.play("backgroundMusic");
+            this._backgroundMusic.volume = 0.1;
+            this._backgroundMusic.loop = 1;
 
             managers.Game.scoreboard.AddGameUI(this);
         };

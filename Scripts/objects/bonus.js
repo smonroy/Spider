@@ -43,7 +43,9 @@ var objects;
                     managers.Game.player.x - managers.Game.player.HalfWidth < this.x + (this.Width * this.scaleX) &&
                     managers.Game.player.y + managers.Game.player.HalfHeight > this.y &&
                     managers.Game.player.y - managers.Game.player.HalfHeight < this.y + (this.Height * this.scaleY)) {
-                    managers.Game.scoreboard.Score += 100;
+                    managers.Game.scoreboard.Score += 20;
+                    let sound = createjs.Sound.play("bonusSound");
+                    sound.volume = 0.1;
                     managers.Game.scoreboard.SetBonus(this._bonusType, true);
                     this.Reset();
                 }

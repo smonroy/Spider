@@ -1,13 +1,13 @@
 module objects {
     export class Building extends createjs.Bitmap {
         private _active:boolean;
-        public floors:number;
+        private _floors:number;
 
         constructor(floors:number, position:number) {
             super(managers.Game.assetMnager.getResult("building"));
-            this.floors = floors;
+            this._floors = floors;
             this.x = position;
-            this.y = managers.SCREEN_HEIGHT - (this.floors * managers.BLOCK_HEIGHT) + 36;
+            this.y = managers.SCREEN_HEIGHT - (this._floors * managers.BLOCK_HEIGHT) + 36;
             this.Reset(floors ,position);
 
             this.on("mouseover", this._over);
@@ -25,14 +25,16 @@ module objects {
 
         private _click(event:createjs.MouseEvent):void {
             if(managers.Game.player.status == SpiderStatus.hanging || managers.Game.player.status == SpiderStatus.falling) {
+                let webSound = createjs.Sound.play("webSound");
+                webSound.volume = 0.1;
                 managers.Game.player.SetAnchor(new util.Vector2(managers.Game.stage.mouseX, managers.Game.stage.mouseY));
             }
         }
 
         public Reset(floors:number, position:number): void {
-            this.floors = floors;
+            this._floors = floors;
             this.x = position;
-            this.y = managers.SCREEN_HEIGHT - (this.floors * managers.BLOCK_HEIGHT) + 36;
+            this.y = managers.SCREEN_HEIGHT - (this._floors * managers.BLOCK_HEIGHT) + 36;
             this._active = true;
         }
 
@@ -52,6 +54,8 @@ module objects {
             if(this._active) {
                 this.x -= distance;
                 if(this.x < - this.getBounds().width) {
+                    let sound = createjs.Sound.play("buildingSound");
+                    sound.volume = 1;    
                     managers.Game.scoreboard.Score += 100;
                     this._active = false;
                 }

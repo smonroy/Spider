@@ -146,6 +146,8 @@ module objects {
         private _chechSidewalkCollision(){
             if(this.y > managers.SCREEN_HEIGHT - 52) {
                 this.y = managers.SCREEN_HEIGHT - 52;
+                let sound = createjs.Sound.play("sidewalkSound");
+                sound.volume = 0.1;
                 this._velocity.y = 0;
                 if(this.status != SpiderStatus.rolling) {
                     this._web.Reset();

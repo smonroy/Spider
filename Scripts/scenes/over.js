@@ -28,6 +28,9 @@ var scenes;
                 managers.Game.scoreboard.Reset();
             });
             managers.Game.scoreboard.AddHighScore(this);
+            this._backgroundMusic = createjs.Sound.play("background2Music");
+            this._backgroundMusic.volume = 0.2;
+            this._backgroundMusic.loop = 1;
         }
         ;
         Update() {
@@ -36,6 +39,7 @@ var scenes;
         }
         ;
         Destroy() {
+            this._backgroundMusic.stop();
             this.removeAllChildren();
         }
         ;

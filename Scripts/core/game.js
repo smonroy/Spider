@@ -27,11 +27,15 @@
         { id: "bonus3", src: "./Assets/Images/bonus3.png" },
         { id: "bonus4", src: "./Assets/Images/bonus4.png" },
         { id: "bonus5", src: "./Assets/Images/bonus5.png" },
-        { id: "engineSound", src: "./Assets/audio/engine.ogg" },
-        { id: "thunderSound", src: "./Assets/audio/thunder.ogg" },
-        { id: "yaySound", src: "./Assets/audio/yay.ogg" },
-        { id: "bulletSound", src: "./Assets/audio/bullet.mp3" },
-        { id: "explosionSound", src: "./Assets/audio/explosion.mp3" },
+        { id: "webSound", src: "./Assets/audio/web.mp3" },
+        { id: "sidewalkSound", src: "./Assets/audio/sidewalk.wav" },
+        { id: "web2Sound", src: "./Assets/audio/clothes.wav" },
+        { id: "bonusSound", src: "./Assets/audio/bonus.wav" },
+        { id: "buildingSound", src: "./Assets/audio/building.wav" },
+        { id: "extraLifeSound", src: "./Assets/audio/extraLife.wav" },
+        { id: "backgroundMusic", src: "./Assets/audio/background.mp3" },
+        { id: "background2Music", src: "./Assets/audio/background2.mp3" },
+        { id: "background3Music", src: "./Assets/audio/background3.mp3" },
     ];
     function Init() {
         assetManager = new createjs.LoadQueue();
