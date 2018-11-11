@@ -63,6 +63,11 @@ var scenes;
             this._spider = new objects.Spider(this, 150, 300);
             managers.Game.player = this._spider;
             this.addChild(this._spider);
+            this._exitButton = new objects.Button("exitButton", 920, 730, true);
+            this.addChild(this._exitButton);
+            this._exitButton.on("click", () => {
+                managers.Game.currentState = config.Scene.START;
+            });
             this._backgroundMusic = createjs.Sound.play("backgroundMusic");
             this._backgroundMusic.volume = 0.1;
             this._backgroundMusic.loop = 1;
