@@ -7,7 +7,7 @@ module scenes {
         private _sidewalk:objects.Sidewalk;
         private _playButton:objects.Button;
         private _menuButton:objects.Button;
-        private _backgroundMusic:createjs.AbstractSoundInstance;
+//        private _backgroundMusic:createjs.AbstractSoundInstance;
 
         constructor() {
             super();
@@ -47,9 +47,9 @@ module scenes {
 
             managers.Game.scoreboard.AddHighScore(this);
 
-            this._backgroundMusic = createjs.Sound.play("background2Music");
-            this._backgroundMusic.volume = 0.2;
-            this._backgroundMusic.loop = 1;
+            // this._backgroundMusic = createjs.Sound.play("background2Music");
+            // this._backgroundMusic.volume = 0.2;
+            // this._backgroundMusic.loop = 1;
         };
 
         public Update():void {
@@ -58,7 +58,7 @@ module scenes {
         };
 
         public Destroy():void {
-            this._backgroundMusic.stop();
+//            this._backgroundMusic.stop();
             this.removeAllChildren();
         };
 

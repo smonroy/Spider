@@ -36,8 +36,8 @@
         {id:"buildingSound", src:"./Assets/audio/building.wav"},
         {id:"extraLifeSound", src:"./Assets/audio/extraLife.wav"},
         {id:"backgroundMusic", src:"./Assets/audio/background.mp3"},
-        {id:"background2Music", src:"./Assets/audio/background2.mp3"},
-        {id:"background3Music", src:"./Assets/audio/background3.mp3"},
+//        {id:"background2Music", src:"./Assets/audio/background2.mp3"},
+//        {id:"background3Music", src:"./Assets/audio/background3.mp3"},
     ];
 
     function Init():void {

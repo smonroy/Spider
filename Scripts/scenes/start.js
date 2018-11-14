@@ -1,6 +1,7 @@
 var scenes;
 (function (scenes) {
     class Start extends objects.Scene {
+        //        private _backgroundMusic:createjs.AbstractSoundInstance;
         constructor() {
             super();
             this.Start();
@@ -37,9 +38,9 @@ var scenes;
             this._exitButton.on("click", () => {
                 managers.Game.currentState = config.Scene.ABOUT;
             });
-            this._backgroundMusic = createjs.Sound.play("background3Music");
-            this._backgroundMusic.volume = 0.1;
-            this._backgroundMusic.loop = 1;
+            // this._backgroundMusic = createjs.Sound.play("background3Music");
+            // this._backgroundMusic.volume = 0.1;
+            // this._backgroundMusic.loop = 1;
         }
         ;
         Update() {
@@ -52,7 +53,7 @@ var scenes;
         }
         ;
         Destroy() {
-            this._backgroundMusic.stop();
+            //            this._backgroundMusic.stop();
             this.removeAllChildren();
         }
         ;
