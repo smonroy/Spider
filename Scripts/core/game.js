@@ -33,7 +33,7 @@
         { id: "bonusSound", src: "./Assets/audio/bonus.wav" },
         { id: "buildingSound", src: "./Assets/audio/building.wav" },
         { id: "extraLifeSound", src: "./Assets/audio/extraLife.wav" },
-        { id: "backgroundMusic", src: "./Assets/audio/background.mp3" },
+        { id: "backgroundMusic", src: "./Assets/audio/background_c.mp3" },
     ];
     function Init() {
         assetManager = new createjs.LoadQueue();
